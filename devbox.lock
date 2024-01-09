@@ -1,0 +1,45 @@
+{
+  "lockfile_version": "1",
+  "packages": {
+    "go@1.21": {
+      "last_modified": "2024-01-02T02:19:20Z",
+      "resolved": "github:NixOS/nixpkgs/63143ac2c9186be6d9da6035fa22620018c85932#go",
+      "source": "devbox-search",
+      "version": "1.21.5",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/b0rpa34hn6cgbkbn8sfr5dzv723ia3z2-go-1.21.5"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/5jamaixw6ni5c05qqml6ld3j386v871k-go-1.21.5"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/hyzs4fhjw7zmwra5scss7hapgw22rcm5-go-1.21.5"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/6qd8p8gilzgplpk2ni3109m0k71r21s7-go-1.21.5"
+        }
+      }
+    },
+    "tailwindcss@latest": {
+      "last_modified": "2024-01-02T02:19:20Z",
+      "resolved": "github:NixOS/nixpkgs/63143ac2c9186be6d9da6035fa22620018c85932#tailwindcss",
+      "source": "devbox-search",
+      "version": "3.4.0",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/arl05jv5njwxvzp9m5kar6q4vjasijnp-tailwindcss-3.4.0"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/fp5rsff2qppxf8gryls4dlyfk2bd4bqy-tailwindcss-3.4.0"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/7n253xjxzql78883fjb9b6xbxjq1zx1v-tailwindcss-3.4.0"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/d5g84hrlcsvj82pdj0222m92kwmbqln5-tailwindcss-3.4.0"
+        }
+      }
+    }
+  }
+}
