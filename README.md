@@ -42,3 +42,11 @@ Start a simple HTTP server that responds with a component:
 
 Nice, now let's do some HTMX magic:
 
+* Implement global / session counts with updates via HTMX
+* `components/Layout.templ`
+* `pages/Counts.templ`
+
+Let's make it nicer!
+
+* Use props types for components
+* Extract private components

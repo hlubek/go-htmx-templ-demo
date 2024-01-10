@@ -5,25 +5,38 @@ import (
 	"strconv"
 )
 
-templ CountsPage(global, session int) {
+type Counts struct {
+	Global  int
+	Session int
+}
+
+type CountsPageProps struct {
+	Counts Counts
+}
+
+templ CountsPage(props CountsPageProps) {
 	@components.Layout() {
-		@CountsForm(global, session)
+		@CountsForm(CountsFormProps{Counts: props.Counts})
 	}
 }
 
-templ CountsForm(global, session int) {
+type CountsFormProps struct {
+	Counts Counts
+}
+
+templ CountsForm(props CountsFormProps) {
 	<form id="countsForm" action="/" method="POST" hx-post="/" hx-select="#countsForm" hx-swap="outerHTML">
 		<div class="grid grid-cols-2">
 			<div class="flex flex-col items-center justify-center gap-2 border-4 border-teal-300 rounded-md py-6-8">
 				<div class="text-center">
-					<h1 class="text-3xl">{ strconv.Itoa(global) }</h1>
+					<h1 class="text-3xl">{ strconv.Itoa(props.Counts.Global) }</h1>
 					<p class="text-md">Global</p>
 				</div>
 				<button type="submit" name="global" value="global">+1</button>
 			</div>
 			<div class="flex flex-col items-center justify-center gap-2 border-4 border-indigo-300 rounded-md m-2 py-8">
 				<div class="text-center">
-					<h1 class="text-3xl">{ strconv.Itoa(session) }</h1>
+					<h1 class="text-3xl">{ strconv.Itoa(props.Counts.Session) }</h1>
 					<p class="text-md">Session</p>
 				</div>
 				<button type="submit" name="session" value="session">+1</button>
