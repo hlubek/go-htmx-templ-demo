@@ -59,3 +59,9 @@ Let's use the built-in proxy:
 ```sh
 templ generate --watch --proxy http://localhost:3000 --cmd="go run ."
 ```
+
+Can we have some kind of real-time?
+
+HTMX has WebSocket or SSE support via extensions. Let's go for SSE.
+
+* `go get github.com/r3labs/sse/v2`

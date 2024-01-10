@@ -80,7 +80,7 @@ func CountsForm(props CountsFormProps) templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form id=\"countsForm\" action=\"/\" method=\"POST\" hx-post=\"/\" hx-select=\"#countsForm\" hx-swap=\"outerHTML\"><div class=\"grid grid-cols-2 gap-4\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form id=\"countsForm\" action=\"/\" method=\"POST\" hx-post=\"/\" hx-select=\"#countsForm\"><div class=\"grid grid-cols-2 gap-4\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -90,20 +90,20 @@ func CountsForm(props CountsFormProps) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"text-center\"><h1 class=\"text-3xl\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"text-center\" hx-ext=\"sse\" sse-connect=\"/sse?stream=global\"><h1 class=\"text-3xl\" sse-swap=\"GlobalCountChanged\" hx-select=\"*\" hx-swap=\"innerHTML\"><span>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var5 string
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(props.Counts.Global))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/Counts.templ`, Line: 31, Col: 61}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/Counts.templ`, Line: 31, Col: 131}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h1><p class=\"text-md\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</span></h1><p class=\"text-md\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -151,20 +151,20 @@ func CountsForm(props CountsFormProps) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"text-center\"><h1 class=\"text-3xl\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"text-center\" hx-ext=\"sse\" sse-connect=\"/sse?stream=local\"><h1 class=\"text-3xl\" sse-swap=\"SessionCountChanged\" hx-select=\"*\" hx-swap=\"innerHTML\"><span>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var10 string
 			templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(props.Counts.Session))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/Counts.templ`, Line: 42, Col: 62}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/Counts.templ`, Line: 42, Col: 133}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h1><p class=\"text-md\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</span></h1><p class=\"text-md\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
