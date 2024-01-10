@@ -51,7 +51,6 @@ Let's make it nicer!
 * Use props types for components
 * Extract private components
 
-
 Tedious to reload for changes, can we have live-reload?
 
 Let's use the built-in proxy:
@@ -60,8 +59,12 @@ Let's use the built-in proxy:
 templ generate --watch --proxy http://localhost:3000 --cmd="go run ."
 ```
 
+Note: This does not work for other Go changes, so better use refresh.
+
 Can we have some kind of real-time?
 
 HTMX has WebSocket or SSE support via extensions. Let's go for SSE.
 
 * `go get github.com/r3labs/sse/v2`
+
+Note: be careful with inheritance of `hx-select` / `hx-swap`
