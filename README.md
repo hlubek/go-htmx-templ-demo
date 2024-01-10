@@ -53,3 +53,9 @@ Let's make it nicer!
 
 
 Tedious to reload for changes, can we have live-reload?
+
+Let's use the built-in proxy:
+
+```sh
+templ generate --watch --proxy http://localhost:3000 --cmd="go run ."
+```
