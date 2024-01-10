@@ -33,7 +33,12 @@ go run main.go
 
 Start a simple HTTP server that responds with a component:
 
+* `main.go`
+
 ```
 ❯ curl http://localhost:3000
 <div>Hello, Jane</div>%
 ```
+
+Nice, now let's do some HTMX magic:
+

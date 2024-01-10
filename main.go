@@ -2,17 +2,19 @@ package main
 
 import (
 	"fmt"
-	"go-htmx-templ-todo-app/components"
 	"net/http"
 
-	"github.com/a-h/templ"
+	"go-htmx-templ-todo-app/handler"
+	"go-htmx-templ-todo-app/service"
 )
 
 func main() {
-	component := components.Hello("Jane")
+	counter := service.NewInMemoryCounter()
 
-	http.Handle("/", templ.Handler(component))
+	srv := http.NewServeMux()
+	srv.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("public/assets"))))
+	srv.Handle("/", handler.New(counter))
 
 	fmt.Println("Listening on :3000")
-	http.ListenAndServe(":3000", nil)
+	http.ListenAndServe(":3000", srv)
 }

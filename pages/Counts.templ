@@ -1,0 +1,33 @@
+package pages
+
+import (
+	"go-htmx-templ-todo-app/components"
+	"strconv"
+)
+
+templ CountsPage(global, session int) {
+	@components.Layout() {
+		@CountsForm(global, session)
+	}
+}
+
+templ CountsForm(global, session int) {
+	<form id="countsForm" action="/" method="POST" hx-post="/" hx-select="#countsForm" hx-swap="outerHTML">
+		<div class="grid grid-cols-2">
+			<div class="flex flex-col items-center justify-center gap-2 border-4 border-teal-300 rounded-md py-6-8">
+				<div class="text-center">
+					<h1 class="text-3xl">{ strconv.Itoa(global) }</h1>
+					<p class="text-md">Global</p>
+				</div>
+				<button type="submit" name="global" value="global">+1</button>
+			</div>
+			<div class="flex flex-col items-center justify-center gap-2 border-4 border-indigo-300 rounded-md m-2 py-8">
+				<div class="text-center">
+					<h1 class="text-3xl">{ strconv.Itoa(session) }</h1>
+					<p class="text-md">Session</p>
+				</div>
+				<button type="submit" name="session" value="session">+1</button>
+			</div>
+		</div>
+	</form>
+}
