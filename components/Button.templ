@@ -1,0 +1,13 @@
+package components
+
+type ButtonProps struct {
+	Type  string
+	Name  string
+	Value string
+}
+
+templ Button(props ButtonProps) {
+	<button type={ props.Type } name={ props.Name } value={ props.Value }>
+		{ children... }
+	</button>
+}

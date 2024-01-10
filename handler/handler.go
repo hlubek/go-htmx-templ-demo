@@ -46,7 +46,8 @@ func (h *Handler) get(w http.ResponseWriter, r *http.Request) {
 
 	globalCount := h.counter.Get()
 
-	pages.CountsPage(globalCount, sessionCount).Render(r.Context(), w)
+	counts := pages.Counts{Global: globalCount, Session: sessionCount}
+	pages.CountsPage(pages.CountsPageProps{Counts: counts}).Render(r.Context(), w)
 }
 
 func (h *Handler) create(w http.ResponseWriter, r *http.Request) {
@@ -73,7 +74,8 @@ func (h *Handler) create(w http.ResponseWriter, r *http.Request) {
 		globalCount = h.counter.Get()
 	}
 
-	pages.CountsForm(globalCount, sessionCount).Render(r.Context(), w)
+	counts := pages.Counts{Global: globalCount, Session: sessionCount}
+	pages.CountsForm(pages.CountsFormProps{Counts: counts}).Render(r.Context(), w)
 }
 
 func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {

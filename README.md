@@ -50,3 +50,6 @@ Let's make it nicer!
 
 * Use props types for components
 * Extract private components
+
+
+Tedious to reload for changes, can we have live-reload?
