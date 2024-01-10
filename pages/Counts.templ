@@ -27,7 +27,7 @@ type CountsFormProps struct {
 templ CountsForm(props CountsFormProps) {
 	<form id="countsForm" action="/" method="POST" hx-post="/" hx-select="#countsForm" hx-swap="outerHTML">
 		<div class="grid grid-cols-2 gap-4">
-			@countsFormGridCol() {
+			@countsFormGridCol(gridColProps{}) {
 				<div class="text-center">
 					<h1 class="text-3xl">{ strconv.Itoa(props.Counts.Global) }</h1>
 					<p class="text-md">Global</p>
@@ -36,7 +36,9 @@ templ CountsForm(props CountsFormProps) {
 					+1
 				}
 			}
-			@countsFormGridCol() {
+			@countsFormGridCol(gridColProps{
+        borderColorClass: "border-indigo-300",
+      }) {
 				<div class="text-center">
 					<h1 class="text-3xl">{ strconv.Itoa(props.Counts.Session) }</h1>
 					<p class="text-md">Session</p>
@@ -49,8 +51,19 @@ templ CountsForm(props CountsFormProps) {
 	</form>
 }
 
-templ countsFormGridCol() {
-	<div class="flex flex-col items-center justify-center gap-2 border-4 border-teal-300 rounded-md py-8">
+type gridColProps struct {
+	borderColorClass string
+}
+
+func (p gridColProps) borderClassOrDefault() string {
+	if p.borderColorClass == "" {
+		return "border-teal-300"
+	}
+	return p.borderColorClass
+}
+
+templ countsFormGridCol(props gridColProps) {
+	<div class={ "flex flex-col items-center justify-center gap-2 border-4 rounded-md py-8", props.borderClassOrDefault() }>
 		{ children... }
 	</div>
 }
