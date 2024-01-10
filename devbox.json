@@ -1,7 +1,8 @@
 {
   "packages": [
     "go@1.21",
-    "tailwindcss@latest"
+    "tailwindcss@latest",
+    "github:a-h/templ/v0.2.513"
   ],
   "shell": {
     "init_hook": [

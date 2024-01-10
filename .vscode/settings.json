@@ -1,0 +1,3 @@
+{
+    "go.goroot": "${workspaceFolder}/.devbox/nix/profile/default/share/go"
+}
