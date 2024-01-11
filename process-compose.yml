@@ -1,0 +1,9 @@
+version: "0.5"
+
+processes:
+  tailwind:watch:
+    command: tailwindcss -i css/index.css -o public/assets/index.css --watch=always
+  templ:watch:
+    command: templ generate --watch
+  refresh:
+    command: go run github.com/networkteam/refresh
