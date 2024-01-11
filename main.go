@@ -1,20 +1,69 @@
 package main
 
 import (
-	"fmt"
+	"log/slog"
 	"net/http"
+	"os"
+	"time"
+
+	"github.com/lmittmann/tint"
+	"github.com/mattn/go-isatty"
+	"github.com/urfave/cli/v2"
 
 	"go-htmx-templ-todo-app/handler"
 	"go-htmx-templ-todo-app/service"
 )
 
 func main() {
+	setDefaultLogger()
+
+	app := cli.NewApp()
+	app.Flags = []cli.Flag{
+		&cli.StringFlag{
+			Name:  "address",
+			Value: ":3000",
+		},
+		&cli.StringFlag{
+			Name:    "live-reload-sse-url",
+			EnvVars: []string{"REFRESH_LIVE_RELOAD_SSE_URL"}, // Bind to env var that is set by refresh
+		},
+	}
+	app.Action = server
+	err := app.Run(os.Args)
+	if err != nil {
+		slog.Error("Command failed", "err", err)
+		os.Exit(1)
+	}
+}
+
+func setDefaultLogger() {
+	w := os.Stderr
+
+	// set global logger with custom options
+	slog.SetDefault(slog.New(
+		tint.NewHandler(w, &tint.Options{
+			Level:      slog.LevelDebug,
+			TimeFormat: time.TimeOnly,
+			NoColor:    !isatty.IsTerminal(w.Fd()),
+		}),
+	))
+}
+
+func server(c *cli.Context) error {
 	counter := service.NewInMemoryCounter()
+
+	config := handler.Config{
+		LiveReloadSSEurl: c.String("live-reload-sse-url"),
+	}
+	if c.String("live-reload-sse-url") != "" {
+		slog.Debug("Live reload enabled", "liveReloadSSEurl", c.String("live-reload-sse-url"))
+	}
 
 	srv := http.NewServeMux()
 	srv.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("public/assets"))))
-	srv.Handle("/", handler.New(counter))
+	srv.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) { w.WriteHeader(http.StatusOK) })
+	srv.Handle("/", handler.New(config, counter))
 
-	fmt.Println("Listening on :3000")
-	http.ListenAndServe(":3000", srv)
+	slog.Info("Listening", "address", c.String("address"))
+	return http.ListenAndServe(c.String("address"), srv)
 }

@@ -18,3 +18,5 @@ ignored_folders:
 included_extensions:
 - .go
 log_name: ""
+live_reload: true
+readyness_url: http://localhost:3000/healthz

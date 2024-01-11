@@ -1,6 +1,10 @@
 package components
 
-templ Layout() {
+type LayoutProps struct {
+	LiveReloadSSEurl string
+}
+
+templ Layout(props LayoutProps) {
 	<!DOCTYPE html>
 	<html>
 		<head>
@@ -14,6 +18,22 @@ templ Layout() {
 				<h1 class="text-xl mb-4">Go HTMX and templ todo app (kind of)</h1>
 				{ children... }
 			</main>
+			@liveReload(props)
 		</body>
 	</html>
+}
+
+templ liveReload(props LayoutProps) {
+    if props.LiveReloadSSEurl != "" {
+        <div class="hidden" hx-ext="sse" sse-connect={ props.LiveReloadSSEurl } sse-swap="restart" hx-swap="none"></div>
+        @liveReloadListener(props)
+    }
+}
+
+script liveReloadListener(props LayoutProps) {
+    document.body.addEventListener('htmx:sseMessage', function(evt) {
+        if (evt.detail.type == "restart") {
+            window.location.reload();
+        }
+    });
 }

@@ -8,11 +8,16 @@ import (
 	"github.com/gorilla/sessions"
 	"github.com/r3labs/sse/v2"
 
+	"go-htmx-templ-todo-app/components"
 	"go-htmx-templ-todo-app/pages"
 	"go-htmx-templ-todo-app/service"
 )
 
 var store = sessions.NewCookieStore([]byte("only-for-development"))
+
+type Config struct {
+	LiveReloadSSEurl string
+}
 
 type Handler struct {
 	mux *http.ServeMux
@@ -20,9 +25,11 @@ type Handler struct {
 	counter service.Counter
 
 	s *sse.Server
+
+	config Config
 }
 
-func New(counter service.Counter) *Handler {
+func New(config Config, counter service.Counter) *Handler {
 	s := sse.New()
 	s.AutoReplay = false
 	s.CreateStream("global")
@@ -31,6 +38,8 @@ func New(counter service.Counter) *Handler {
 		mux:     http.NewServeMux(),
 		counter: counter,
 		s:       s,
+
+		config: config,
 	}
 
 	h.mux.HandleFunc("/sse", h.events)
@@ -54,7 +63,7 @@ func (h *Handler) get(w http.ResponseWriter, r *http.Request) {
 	sessionCount := session.Values["counter"].(int)
 
 	counts := pages.Counts{Global: globalCount, Session: sessionCount}
-	pages.CountsPage(pages.CountsPageProps{Counts: counts}).Render(r.Context(), w)
+	pages.CountsPage(pages.CountsPageProps{Counts: counts, LayoutProps: h.layoutProps()}).Render(r.Context(), w)
 }
 
 func (h *Handler) create(w http.ResponseWriter, r *http.Request) {
@@ -127,6 +136,12 @@ func (h *Handler) events(w http.ResponseWriter, r *http.Request) {
 	}
 
 	h.s.ServeHTTP(w, r)
+}
+
+func (h *Handler) layoutProps() components.LayoutProps {
+	return components.LayoutProps{
+		LiveReloadSSEurl: h.config.LiveReloadSSEurl,
+	}
 }
 
 func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {

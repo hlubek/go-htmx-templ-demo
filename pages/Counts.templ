@@ -11,11 +11,12 @@ type Counts struct {
 }
 
 type CountsPageProps struct {
+	components.LayoutProps
 	Counts Counts
 }
 
 templ CountsPage(props CountsPageProps) {
-	@components.Layout() {
+	@components.Layout(props.LayoutProps) {
 		@CountsForm(CountsFormProps{Counts: props.Counts})
 	}
 }
@@ -37,8 +38,8 @@ templ CountsForm(props CountsFormProps) {
 				}
 			}
 			@countsFormGridCol(gridColProps{
-        borderColorClass: "border-indigo-300",
-      }) {
+				borderColorClass: "border-indigo-300",
+			}) {
 				<div class="text-center" hx-ext="sse" sse-connect="/sse?stream=local">
 					<h1 class="text-3xl" sse-swap="SessionCountChanged" hx-select="*" hx-swap="innerHTML"><span>{ strconv.Itoa(props.Counts.Session) }</span></h1>
 					<p class="text-md">Session</p>
