@@ -91,7 +91,7 @@ func CountsForm(props CountsFormProps) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"text-center\" hx-ext=\"sse\" sse-connect=\"/sse?stream=global\"><h1 class=\"text-3xl\" sse-swap=\"GlobalCountChanged\" hx-select=\"*\" hx-swap=\"innerHTML\"><span>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"text-center\" hx-ext=\"sse\" sse-connect=\"/sse?stream=global\"><h1 class=\"text-4xl\" sse-swap=\"GlobalCountChanged\" hx-select=\"*\" hx-swap=\"innerHTML\"><span>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -152,7 +152,7 @@ func CountsForm(props CountsFormProps) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"text-center\" hx-ext=\"sse\" sse-connect=\"/sse?stream=local\"><h1 class=\"text-3xl\" sse-swap=\"SessionCountChanged\" hx-select=\"*\" hx-swap=\"innerHTML\"><span>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"text-center\" hx-ext=\"sse\" sse-connect=\"/sse?stream=local\"><h1 class=\"text-4xl\" sse-swap=\"SessionCountChanged\" hx-select=\"*\" hx-swap=\"innerHTML\"><span>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

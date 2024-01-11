@@ -137,8 +137,6 @@ This extension adds support for Server Sent Events to htmx.  See /www/extensions
 				var sseEventName = sseEventNames[i].trim();
 				var listener = function(event) {
 
-					console.debug("Raw received SSE event", event);
-
 					// If the source is missing then close SSE
 					if (maybeCloseSSESource(sourceElement)) {
 						return;

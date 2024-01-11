@@ -16,7 +16,8 @@ import (
 var store = sessions.NewCookieStore([]byte("only-for-development"))
 
 type Config struct {
-	LiveReloadSSEurl string
+	LiveReloadSSEurl   string
+	LiveReloadSSEevent string
 }
 
 type Handler struct {
@@ -140,7 +141,8 @@ func (h *Handler) events(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) layoutProps() components.LayoutProps {
 	return components.LayoutProps{
-		LiveReloadSSEurl: h.config.LiveReloadSSEurl,
+		LiveReloadSSEurl:   h.config.LiveReloadSSEurl,
+		LiveReloadSSEevent: h.config.LiveReloadSSEevent,
 	}
 }
 

@@ -23,9 +23,14 @@ func main() {
 			Name:  "address",
 			Value: ":3000",
 		},
+		// Bind to env vars that are set by refresh if live reload is enabled
 		&cli.StringFlag{
 			Name:    "live-reload-sse-url",
-			EnvVars: []string{"REFRESH_LIVE_RELOAD_SSE_URL"}, // Bind to env var that is set by refresh
+			EnvVars: []string{"REFRESH_LIVE_RELOAD_SSE_URL"},
+		},
+		&cli.StringFlag{
+			Name:    "live-reload-sse-event",
+			EnvVars: []string{"REFRESH_LIVE_RELOAD_SSE_EVENT"},
 		},
 	}
 	app.Action = server
@@ -53,7 +58,8 @@ func server(c *cli.Context) error {
 	counter := service.NewInMemoryCounter()
 
 	config := handler.Config{
-		LiveReloadSSEurl: c.String("live-reload-sse-url"),
+		LiveReloadSSEurl:   c.String("live-reload-sse-url"),
+		LiveReloadSSEevent: c.String("live-reload-sse-event"),
 	}
 	if c.String("live-reload-sse-url") != "" {
 		slog.Debug("Live reload enabled", "liveReloadSSEurl", c.String("live-reload-sse-url"))

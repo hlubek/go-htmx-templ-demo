@@ -8,7 +8,7 @@ require (
 	github.com/gorilla/sessions v1.2.2
 	github.com/lmittmann/tint v1.0.3
 	github.com/mattn/go-isatty v0.0.20
-	github.com/networkteam/refresh v1.14.0
+	github.com/networkteam/refresh v1.15.0-alpha
 	github.com/r3labs/sse/v2 v2.10.0
 	github.com/urfave/cli/v2 v2.27.1
 )
@@ -32,5 +32,3 @@ require (
 	gopkg.in/cenkalti/backoff.v1 v1.1.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
-
-replace github.com/networkteam/refresh => /Users/hlubek/Dev/Go/refresh

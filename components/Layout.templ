@@ -1,7 +1,13 @@
 package components
 
+import (
+	"time"
+	"strconv"
+)
+
 type LayoutProps struct {
-	LiveReloadSSEurl string
+	LiveReloadSSEurl   string
+	LiveReloadSSEevent string
 }
 
 templ Layout(props LayoutProps) {
@@ -11,11 +17,11 @@ templ Layout(props LayoutProps) {
 			<title>Go HTMX and templ todo app</title>
 			<script src="/assets/htmx.min.js"></script>
 			<script src="/assets/ext/sse.js"></script>
-			<link rel="stylesheet" type="text/css" href="/assets/index.css"/>
+			<link rel="stylesheet" type="text/css" href={ "/assets/index.css?t=" + strconv.Itoa(int(time.Now().Unix())) }/>
 		</head>
 		<body>
 			<main class="px-2 p-8 max-w-screen-lg mx-auto">
-				<h1 class="text-xl mb-4">Go HTMX and templ todo app (kind of)</h1>
+				<h1 class="text-xl mb-4">Go HTMX and templ demo app</h1>
 				{ children... }
 			</main>
 			@liveReload(props)
@@ -24,16 +30,16 @@ templ Layout(props LayoutProps) {
 }
 
 templ liveReload(props LayoutProps) {
-    if props.LiveReloadSSEurl != "" {
-        <div class="hidden" hx-ext="sse" sse-connect={ props.LiveReloadSSEurl } sse-swap="restart" hx-swap="none"></div>
-        @liveReloadListener(props)
-    }
+	if props.LiveReloadSSEurl != "" {
+		<div class="hidden" hx-ext="sse" sse-connect={ props.LiveReloadSSEurl } sse-swap={ props.LiveReloadSSEevent } hx-swap="none"></div>
+		@liveReloadListener(props)
+	}
 }
 
 script liveReloadListener(props LayoutProps) {
-    document.body.addEventListener('htmx:sseMessage', function(evt) {
-        if (evt.detail.type == "restart") {
-            window.location.reload();
-        }
-    });
+	document.body.addEventListener('htmx:sseMessage', function(evt) {
+		if (evt && evt.detail && evt.detail.type == props.LiveReloadSSEevent) {
+			window.location.reload();
+		}
+	});
 }

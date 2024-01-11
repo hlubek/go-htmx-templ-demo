@@ -10,8 +10,14 @@ import "context"
 import "io"
 import "bytes"
 
+import (
+	"strconv"
+	"time"
+)
+
 type LayoutProps struct {
-	LiveReloadSSEurl string
+	LiveReloadSSEurl   string
+	LiveReloadSSEevent string
 }
 
 func Layout(props LayoutProps) templ.Component {
@@ -54,11 +60,19 @@ func Layout(props LayoutProps) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</script><link rel=\"stylesheet\" type=\"text/css\" href=\"/assets/index.css\"></head><body><main class=\"px-2 p-8 max-w-screen-lg mx-auto\"><h1 class=\"text-xl mb-4\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</script><link rel=\"stylesheet\" type=\"text/css\" href=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Var5 := `Go HTMX and templ todo app (kind of)`
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString("/assets/index.css?t=" + strconv.Itoa(int(time.Now().Unix()))))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"></head><body><main class=\"px-2 p-8 max-w-screen-lg mx-auto\"><h1 class=\"text-xl mb-4\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var5 := `Go HTMX and templ demo app`
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var5)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -112,7 +126,15 @@ func liveReload(props LayoutProps) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" sse-swap=\"restart\" hx-swap=\"none\"></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" sse-swap=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(props.LiveReloadSSEevent))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"none\"></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -130,13 +152,13 @@ func liveReload(props LayoutProps) templ.Component {
 
 func liveReloadListener(props LayoutProps) templ.ComponentScript {
 	return templ.ComponentScript{
-		Name: `__templ_liveReloadListener_4b02`,
-		Function: `function __templ_liveReloadListener_4b02(props){document.body.addEventListener('htmx:sseMessage', function(evt) {
-        if (evt.detail.type == "restart") {
-            window.location.reload();
-        }
-    });}`,
-		Call:       templ.SafeScript(`__templ_liveReloadListener_4b02`, props),
-		CallInline: templ.SafeScriptInline(`__templ_liveReloadListener_4b02`, props),
+		Name: `__templ_liveReloadListener_2c93`,
+		Function: `function __templ_liveReloadListener_2c93(props){document.body.addEventListener('htmx:sseMessage', function(evt) {
+		if (evt && evt.detail && evt.detail.type == props.LiveReloadSSEevent) {
+			window.location.reload();
+		}
+	});}`,
+		Call:       templ.SafeScript(`__templ_liveReloadListener_2c93`, props),
+		CallInline: templ.SafeScriptInline(`__templ_liveReloadListener_2c93`, props),
 	}
 }
